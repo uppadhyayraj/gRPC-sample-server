@@ -30,6 +30,9 @@ node server.js
 ```
 
 The server will be running at http://127.0.0.1:50051
+### Note
+We will not be able to connect and see the above URL in Browser. For this either we have to use a supported tool, and the easiest way is using postman.
+https://learning.postman.com/docs/sending-requests/grpc/first-grpc-request/ 
 
 ## APIs included in the sample server
 
