@@ -1,5 +1,9 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const { ReflectionService } = require('@grpc/reflection');
+
+
+
 const packageDefinition = protoLoader.loadSync('product.proto', {
   keepCase: true,
   longs: String,
@@ -8,6 +12,8 @@ const packageDefinition = protoLoader.loadSync('product.proto', {
   oneofs: true
 });
 const productProto = grpc.loadPackageDefinition(packageDefinition).product;
+
+const reflection = new ReflectionService(packageDefinition);
 
 const products = [];
 
@@ -54,6 +60,9 @@ function main() {
     getProduct,
     listProducts
   });
+
+  reflection.addToServer(server);
+
   server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), () => {
     console.log('Server running at http://127.0.0.1:50051');
     server.start();
